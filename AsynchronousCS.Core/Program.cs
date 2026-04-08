@@ -12,18 +12,22 @@ namespace AsynchronousCS.Core
 
             var printHello = Task.Run(async () =>
             {
-                Console.WriteLine("Hello..");
                 await Task.Delay(3000);
+                return "Hello..";
+                
             });
 
             var printWorld = Task.Run(async () => 
             {
-                Console.WriteLine(".. World!");
                 await Task.Delay(3000);
+                return ".. World!";
             });
 
-            await Task.WhenAll([printHello, printWorld]);
+             string[] combinedTask = await Task.WhenAll(printHello, printWorld);
+
             stopwatch.Stop();
+            Console.WriteLine($"{combinedTask[0]}{combinedTask[1]}");
+            Console.WriteLine($"Time taken: {stopwatch.ElapsedMilliseconds}ms");
         }
     }
 }
